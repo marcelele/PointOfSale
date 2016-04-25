@@ -1,17 +1,28 @@
 /**
  * Created by Marceli Baczewski on 25.04.2016.
  */
+
 public class Item {
 
     private String name;
-    private Float price;
+    private float price;
 
-    public Item(String name, Float price){
+    public Item(String name, float price) {
         this.name = name;
         this.price = price;
     }
-    @Override
-    public String toString(){
-        return name + "  " + price;
+
+    public float getPrice() {
+        return price;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name + "   " + price;
+    }
+
 }

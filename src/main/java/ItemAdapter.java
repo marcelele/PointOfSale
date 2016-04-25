@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Marceli Baczewski on 25.04.2016.
@@ -6,17 +8,17 @@ import java.util.ArrayList;
 public class ItemAdapter {
 
 
-    public ItemAdapter(){
-
+    public ItemAdapter() {
     }
 
-    public ArrayList<String> adapt(ArrayList<Item> items) {
-        ArrayList<String> products = new ArrayList<String>();
-        int counter = 0;
-        for(Item i : items){
-            products.add(counter, items.get(counter).toString());
-            counter++;
-        }
-        return products;
+    public String getSumString(List<Item> items) {
+        float sum = (float) items.stream().mapToDouble(Item::getPrice).sum();
+        return ("Sum:   " + sum);
+    }
+
+    public List<String> mapToStrings(List<Item> items) {
+        List<String> itemsAsStrings = items.stream().map(Item::toString).collect(Collectors.toList());
+        List<String> result = new ArrayList<>(itemsAsStrings);
+        return result;
     }
 }
