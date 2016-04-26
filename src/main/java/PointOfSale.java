@@ -52,6 +52,12 @@ public class PointOfSale {
 
     }
 
+    public void tryAdding(String itemID) {
+        Optional<Item> itemToAdd = database.getItemById(itemID);
+        if (itemToAdd.isPresent()) addItem(itemToAdd.get());
+        else notFound();
+    }
+
     public void addItem(Item itemToAdd) {
         items.add(itemToAdd);
         lcd.print(itemToAdd.toString());
@@ -65,10 +71,5 @@ public class PointOfSale {
         lcd.print("Invalid bar-code");
     }
 
-    public void tryAdding(String itemID) {
-        Optional<Item> itemToAdd = database.getItemById(itemID);
-        if (itemToAdd.isPresent()) addItem(itemToAdd.get());
-        else notFound();
-    }
 }
 

@@ -27,8 +27,8 @@ public class PointOfSaleTest {
     public void testNullExit() {
         when(mockedScanner.scanID()).thenReturn("exit");
         testPoint.checkInput(mockedScanner.scanID());
-        verify(mockedLcd, never()).print(null);
-        verify(mockedPrinter, never()).printOut(null);
+        verify(mockedLcd, never()).print(anyObject());
+        verify(mockedPrinter, never()).printOut(anyObject());
     }
 
     @Test
@@ -39,26 +39,9 @@ public class PointOfSaleTest {
         when(mockedScanner.scanID()).thenReturn("exit");
         testPoint.checkInput(mockedScanner.scanID());
         verify(mockedScanner, times(2)).scanID();
-        verify(mockedLcd, times(1)).print("Test   5,00");
-        verify(mockedLcd, times(1)).print("Sum:   5,00");
-        verify(mockedPrinter, times(1)).printOut(Arrays.asList("Test   5,00", "Sum:   5,00"));
-    }
-
-    @Test
-    public void testNotFound() {
-        when(mockedScanner.scanID()).thenReturn("empty");
-        when(mockedDatabase.getItemById("empty")).thenReturn(Optional.empty());
-        testPoint.checkInput(mockedScanner.scanID());
-        verify(mockedLcd, times(1)).print("Product not found");
-
-    }
-
-    @Test
-    public void testInvalidCode() {
-        when(mockedScanner.scanID()).thenReturn("");
-        testPoint.checkInput(mockedScanner.scanID());
-        verify(mockedLcd, times(1)).print("Invalid bar-code");
-
+        verify(mockedLcd).print("Test   5,00");
+        verify(mockedLcd).print("Sum:   5,00");
+        verify(mockedPrinter).printOut(Arrays.asList("Test   5,00", "Sum:   5,00"));
     }
 
     @Test
@@ -71,7 +54,25 @@ public class PointOfSaleTest {
         testPoint.checkInput(mockedScanner.scanID());
         when(mockedScanner.scanID()).thenReturn("exit");
         testPoint.checkInput(mockedScanner.scanID());
-        verify(mockedPrinter, times(1)).printOut(Arrays.asList("Fries   7,96", "Chicken nuggets   4,04", "Sum:   12,00"));
+        verify(mockedPrinter).printOut(Arrays.asList("Fries   7,96", "Chicken nuggets   4,04", "Sum:   12,00"));
 
     }
+
+    @Test
+    public void testNotFound() {
+        when(mockedScanner.scanID()).thenReturn("empty");
+        when(mockedDatabase.getItemById("empty")).thenReturn(Optional.empty());
+        testPoint.checkInput(mockedScanner.scanID());
+        verify(mockedLcd).print("Product not found");
+
+    }
+
+    @Test
+    public void testInvalidCode() {
+        when(mockedScanner.scanID()).thenReturn("");
+        testPoint.checkInput(mockedScanner.scanID());
+        verify(mockedLcd).print("Invalid bar-code");
+
+    }
+
 }
