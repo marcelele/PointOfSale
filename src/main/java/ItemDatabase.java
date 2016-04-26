@@ -1,5 +1,6 @@
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemDatabase {
-    Item getItemById(List<Item> items);
+    Optional<Item> getItemById(String itemID);
 }
