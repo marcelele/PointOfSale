@@ -19,10 +19,6 @@ public class Item {
         return price;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public String toString() {
         return (name + "   " + new DecimalFormat("#.00").format(price));

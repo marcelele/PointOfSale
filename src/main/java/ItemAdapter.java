@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 public class ItemAdapter {
 
 
-
     public String getSumString(List<Item> items) {
         float sum = (float) items.stream().mapToDouble(i -> i.getPrice()).sum();
         return ("Sum:   " + new DecimalFormat("#.00").format(sum));

@@ -31,14 +31,17 @@ public class PointOfSale {
             case "exit":
                 exit();
                 break;
+            case "full exit":
+                System.exit(0);
+                break;
             default:
                 tryAdding(itemID);
                 break;
         }
     }
 
-    private void exit() {
-        if (items != null) {
+    public void exit() {
+        if (!items.isEmpty()) {
             List<String> receipt = new ItemAdapter().mapToStrings(items);
             String totalSum = new ItemAdapter().getSumString(items);
             receipt.add(totalSum);
@@ -49,23 +52,23 @@ public class PointOfSale {
 
     }
 
-    private void addItem(Item itemToAdd) {
+    public void addItem(Item itemToAdd) {
         items.add(itemToAdd);
         lcd.print(itemToAdd.toString());
     }
 
-    private void notFound() {
+    public void notFound() {
         lcd.print("Product not found");
     }
 
-    private void invalidCode() {
+    public void invalidCode() {
         lcd.print("Invalid bar-code");
     }
 
-    private void tryAdding(String itemID) {
+    public void tryAdding(String itemID) {
         Optional<Item> itemToAdd = database.getItemById(itemID);
-        if (!itemToAdd.isPresent()) notFound();
-        else addItem(itemToAdd.get());
+        if (itemToAdd.isPresent()) addItem(itemToAdd.get());
+        else notFound();
     }
 }
 
