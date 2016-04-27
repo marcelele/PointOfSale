@@ -2,6 +2,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the Item's toString representation correctness
+ */
 public class ItemTest {
 
     @Test
