@@ -40,7 +40,7 @@ public class PointOfSale {
         }
     }
 
-    public void exit() {
+    private void exit() {
         if (!items.isEmpty()) {
             List<String> receipt = new ItemAdapter().mapToStrings(items);
             String totalSum = new ItemAdapter().getSumString(items);
@@ -52,22 +52,22 @@ public class PointOfSale {
 
     }
 
-    public void tryAdding(String itemID) {
+    private void tryAdding(String itemID) {
         Optional<Item> itemToAdd = database.getItemById(itemID);
         if (itemToAdd.isPresent()) addItem(itemToAdd.get());
         else notFound();
     }
 
-    public void addItem(Item itemToAdd) {
+    private void addItem(Item itemToAdd) {
         items.add(itemToAdd);
         lcd.print(itemToAdd.toString());
     }
 
-    public void notFound() {
+    private void notFound() {
         lcd.print("Product not found");
     }
 
-    public void invalidCode() {
+    private void invalidCode() {
         lcd.print("Invalid bar-code");
     }
 
